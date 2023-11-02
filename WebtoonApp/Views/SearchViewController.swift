@@ -253,7 +253,7 @@ class SearchViewController: UIViewController {
         
         
         // 검색된 웹툰 표시, 로딩창 내리기, scroll to top
-        viewModel.allPosts
+        viewModel.allWebtoons
             .do(onNext: { [weak self] post in
                 self?.viewModel.changeType.onNext(post.count > 0 ? .CompleteSearch : .CompleteSearchNoExist)
                 LoadingIndicator.hideLoading()
