@@ -26,7 +26,7 @@ class SearchViewModel {
     
     // OUTPUT
     let historys: Observable<[SearchTerm]>
-    let allPosts: Observable<[Webtoon]>
+    let allWebtoons: Observable<[Webtoon]>
     let boardTitle: Observable<WebtoonType>
     let viewType: Observable<ViewStatus>
     
@@ -42,7 +42,7 @@ class SearchViewModel {
         let removing = PublishSubject<SearchTerm>() // 검색기록 삭제
         let searching = PublishSubject<String>() // 검색하기
         
-        let fetchingPost = PublishSubject<[Webtoon]>()
+        let fetchingWebtoons = PublishSubject<[Webtoon]>()
                 
         changeType = changing.asObserver()
         viewType = changing
@@ -51,7 +51,7 @@ class SearchViewModel {
         
         historys = fetchingHistory
         
-        allPosts = fetchingPost
+        allWebtoons = fetchingWebtoons
         
         fetchHistory = fetching.asObserver()
         // 검색기록 보내기
@@ -77,7 +77,7 @@ class SearchViewModel {
                 .subscribe(onNext: {  webtoonData in
                     guard let webtoons = webtoonData.webtoons else { return }
                     let array = webtoons.filter{ $0.type == selectedType}
-                    fetchingPost.onNext(array)
+                    fetchingWebtoons.onNext(array)
                 }, onError: { error in
                     print("getWebtoonByKeyword Error : ", error)
                 })
