@@ -131,7 +131,7 @@ class MainViewController: UIViewController {
                 return  offSetY > (contentHeight - self.tableView.frame.size.height - 100)
             })
             .subscribe { [weak self] _ in
-                self?.viewModel.pagingPost.onNext(())
+                self?.viewModel.pagingWebtoon.onNext(())
         }
         .disposed(by: disposeBag)
         
@@ -141,7 +141,7 @@ class MainViewController: UIViewController {
         // ------------------------------
         
          // 서비스 종류 전달 및 서비스 선택 화면 이동
-        viewModel.showBoardPage
+        viewModel.showWebtoonTypePage
             .subscribe( onNext: { [weak self] _ in
                 let vm = TypeSelectViewModel()
                 let vc = TypeSelectViewController(viewModel: vm)
@@ -190,7 +190,7 @@ class MainViewController: UIViewController {
         // 웹툰 표시
         // 1. 서비스 타입 변경으로 인해 웹툰 처음으로 가져왔을 때 스크롤 상단이동 & 로딩창 표시
         // 2. tableView Cell 웹툰 바인딩
-         viewModel.allPosts
+         viewModel.allWebtoons
             .do(onNext: { [weak self] webtoons in
                 if webtoons.count <= APIInfo.LimitNum{
                     self?.tableView.scrollToRow(at: NSIndexPath(row: NSNotFound, section: 0) as IndexPath, at: .top, animated: false)
